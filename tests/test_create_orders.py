@@ -27,3 +27,7 @@ class TestCheckCreateOrders:
         with allure.step("Проверяем код ответа и тело ответа"):
             assert response.status_code == 201
             assert "track" in response.json()
+
+    def test_get_list_order(self):
+        response = requests.get(Urls.CREATE_ORDER)
+        assert response.status_code == 200
