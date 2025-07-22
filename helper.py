@@ -1,7 +1,4 @@
-import requests
-
 from faker import Faker
-from data import Urls
 
 def generate_courier():
     return {
@@ -30,8 +27,3 @@ def generate_courier_without_firstName():
     "password": Faker().password(),
     "firstName": ''
     }
-
-def registration_courier():
-    login_pass = generate_courier()
-    requests.post(Urls.POST_COURIER, data=generate_courier())
-    return login_pass

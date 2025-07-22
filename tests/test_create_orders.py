@@ -1,10 +1,8 @@
-import json
+import requests
 import allure
 import pytest
-import requests
 
-from helper import *
-from data import Urls
+from data import *
 
 @allure.description('Проверка ручек раздела "Заказы"')
 class TestCheckCreateOrders:
@@ -25,9 +23,11 @@ class TestCheckCreateOrders:
         with allure.step(f"Отправляем запрос на создание заказа с заданными параметрами цвета: {colors}"):
             response = requests.post(Urls.CREATE_ORDER, json=payload)
         with allure.step("Проверяем код ответа и тело ответа"):
-            assert response.status_code == 201
+            assert response.status_code == Answers.SUCCESS_CREATE_ORDER['code']
             assert "track" in response.json()
 
     def test_get_list_order(self):
-        response = requests.get(Urls.CREATE_ORDER)
-        assert response.status_code == 200
+        with allure.step("Проверяем код ответа при запросе списка заказов"):
+            response = requests.get(Urls.CREATE_ORDER)
+        assert response.status_code == Answers.SUCCESS_GET_ORDER_LIST['code']
+        assert "orders" in response.json()
